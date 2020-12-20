@@ -3,11 +3,13 @@ import {
   FETCH_TODO_LIST_ERROR,
   ADD_TODO_SUCCESS,
   ADD_TODO_ERROR,
-  CHANGE_TODO_STATUS,
+  CHANGE_TODO_STATUS_SUCCESS,
+  CHANGE_TODO_STATUS_ERROR,
   STATUS
 } from 'c/todoAppConstant';
 import getTaskList from '@salesforce/apex/TodoAppController.getTaskList';
 import createTask from '@salesforce/apex/TodoAppController.createTask';
+import updateTaskStatus from '@salesforce/apex/TodoAppController.updateTaskStatus';
 
 export const fetchTodoList = () => {
   return async (dispatch) => {
@@ -62,7 +64,24 @@ export const addTodo = (content) => {
   };
 };
 
-export const changeTodoStatus = (id, status )=> ({
-  type: CHANGE_TODO_STATUS,
-  payload: { id, status }
-});
+export const changeTodoStatus = (recordId, status) => {
+  return async (dispatch) => {
+    try {
+      const data = await updateTaskStatus({recordId, status});
+      dispatch({
+        type: CHANGE_TODO_STATUS_SUCCESS,
+        payload: {data}
+      });
+    } catch(error) {
+      dispatch({
+        type: CHANGE_TODO_STATUS_ERROR,
+        payload: {
+          error: {
+            ...error,
+            message: error.message || (error.body && error.body.message),
+          }
+        }
+      });
+    }
+  };
+};

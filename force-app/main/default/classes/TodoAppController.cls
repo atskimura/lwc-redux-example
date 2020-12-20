@@ -23,4 +23,16 @@ public with sharing class TodoAppController {
             throw new TodoAppControllerException(e.getMessage());
         }
     }
+
+    @AuraEnabled
+    public static Task updateTaskStatus(Id recordId, String status){
+        try {
+            Task task = [SELECT Id, Subject FROM Task WHERE Id = :recordId];
+            task.Status = status;
+            update task;
+            return task;
+        } catch (Exception e) {
+            throw new TodoAppControllerException(e.getMessage());
+        }
+    }
 }

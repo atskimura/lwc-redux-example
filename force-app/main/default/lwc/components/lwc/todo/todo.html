@@ -21,7 +21,7 @@
               <div class="slds-no-flex">
                   <template if:false={isCompleted}>
                       <lightning-button-menu alternative-text="Show menu">
-                          <lightning-menu-item value={status.NOT_STARTED} label="In complete" onclick={handleStatusChange}></lightning-menu-item>
+                          <lightning-menu-item value={status.NOT_STARTED} label="Not started" onclick={handleStatusChange}></lightning-menu-item>
                           <lightning-menu-item value={status.INPROGRESS} label="In Progress" onclick={handleStatusChange}></lightning-menu-item>
                           <lightning-menu-item value={status.COMPLETED} label="Completed" onclick={handleStatusChange}></lightning-menu-item>
                       </lightning-button-menu>
