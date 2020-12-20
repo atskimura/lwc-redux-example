@@ -18,7 +18,7 @@ export default class Todo extends Redux(LightningElement) {
 
     get bodyClass(){
         let strClass = 'slds-m-top_medium slds-box slds-box_xx-small ';
-        if(this.props.record.status == STATUS.INCOMPLETE){
+        if(this.props.record.status == STATUS.NOT_STARTED){
             strClass += 'incomplete';
         }else if(this.props.record.status == STATUS.INPROGRESS){
             strClass += 'inprogress';

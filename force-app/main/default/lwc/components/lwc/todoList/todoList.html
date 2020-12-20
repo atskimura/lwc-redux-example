@@ -7,4 +7,7 @@
   <template if:false={hasRecord}>
       <div class="slds-m-top_medium"><b>No item found</b></div>
   </template>
+  <template if:true={error}>
+      <div class="slds-m-top_medium slds-text-color_error"><b>Failed to fetch Task records. : {error.message}</b></div>
+  </template>
 </template>
