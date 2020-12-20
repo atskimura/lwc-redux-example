@@ -3,6 +3,8 @@ import {
     FETCH_TODO_LIST_SUCCESS,
     FETCH_TODO_LIST_ERROR,
     ADD_TODO,
+    ADD_TODO_SUCCESS,
+    ADD_TODO_ERROR,
     CHANGE_TODO_STATUS,
     STATUS
 } from 'c/todoAppConstant';
@@ -11,7 +13,9 @@ const initialState = {
     allIds: [],
     byIds: {},
     isFetching: false,
-    fetchResult: undefined
+    fetchResult: undefined,
+    isAdding: false,
+    addResult: undefined
 };
 
 const todo = (state = initialState, action) => {
@@ -46,19 +50,35 @@ const todo = (state = initialState, action) => {
             fetchResult: { error }
         };
        }
-       case ADD_TODO: 
-        const { id, content } = action.payload;
+       case ADD_TODO: {
         return {
             ...state,
-            allIds: [...state.allIds, id],
+            isAdding: true
+        };
+       }
+       case ADD_TODO_SUCCESS: {
+        const { data } = action.payload;
+        return {
+            ...state,
+            isAdding: false,
+            allIds: [...state.allIds, data.Id],
             byIds: {
                 ...state.byIds,
-                [id]: {
-                    content,
-                    status: STATUS.NOT_STARTED
+                [data.Id]: {
+                    content: data.Subject,
+                    status: data.Status
                 }
             }
         };
+       }
+       case ADD_TODO_ERROR: {
+        const { error } = action.payload;
+        return {
+            ...state,
+            isAdding: false,
+            addResult: { error }
+        };
+       }
        case CHANGE_TODO_STATUS: {
         const { id, status } = action.payload;
         return {

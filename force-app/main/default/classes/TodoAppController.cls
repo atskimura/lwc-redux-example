@@ -9,4 +9,18 @@ public with sharing class TodoAppController {
             throw new TodoAppControllerException(e.getMessage());
         }
     }
+
+    @AuraEnabled
+    public static Task createTask(String content, String status){
+        try {
+            Task task = new Task(
+                Subject = content,
+                Status = status
+            );
+            insert task;
+            return task;
+        } catch (Exception e) {
+            throw new TodoAppControllerException(e.getMessage());
+        }
+    }
 }

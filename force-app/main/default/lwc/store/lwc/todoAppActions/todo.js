@@ -1,12 +1,13 @@
 import {
   FETCH_TODO_LIST_SUCCESS,
   FETCH_TODO_LIST_ERROR,
-  ADD_TODO,
+  ADD_TODO_SUCCESS,
+  ADD_TODO_ERROR,
   CHANGE_TODO_STATUS,
   STATUS
 } from 'c/todoAppConstant';
 import getTaskList from '@salesforce/apex/TodoAppController.getTaskList';
-let nextTodoId = 0;
+import createTask from '@salesforce/apex/TodoAppController.createTask';
 
 export const fetchTodoList = () => {
   return async (dispatch) => {
@@ -39,13 +40,27 @@ export const fetchTodoListIfNeeded = () => {
   }
 }
 
-export const addTodo = content => ({
-  type: ADD_TODO,
-  payload: {
-    id: ++nextTodoId,
-    content
-  }
-});
+export const addTodo = (content) => {
+  return async (dispatch) => {
+    try {
+      const data = await createTask({content, status:STATUS.NOT_STARTED});
+      dispatch({
+        type: ADD_TODO_SUCCESS,
+        payload: {data}
+      });
+    } catch(error) {
+      dispatch({
+        type: ADD_TODO_ERROR,
+        payload: {
+          error: {
+            ...error,
+            message: error.message || (error.body && error.body.message),
+          }
+        }
+      });
+    }
+  };
+};
 
 export const changeTodoStatus = (id, status )=> ({
   type: CHANGE_TODO_STATUS,
