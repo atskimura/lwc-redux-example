@@ -1,0 +1,10 @@
+<template>
+  <template if:true={hasRecord}>
+      <template for:each={props.allIds} for:item="id">
+          <c-todo key={id} record-id={id}></c-todo>
+      </template>
+  </template>
+  <template if:false={hasRecord}>
+      <div class="slds-m-top_medium"><b>No item found</b></div>
+  </template>
+</template>

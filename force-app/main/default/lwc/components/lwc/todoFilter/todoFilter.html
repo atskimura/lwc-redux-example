@@ -1,0 +1,8 @@
+<template>
+  <div class="slds-button-group slds-m-top_medium" role="group">
+      <button class="slds-button slds-button_neutral" onclick={handleClick} value={visibilityFilter.ALL}>{visibilityFilter.ALL}</button>
+      <button class="slds-button slds-button_neutral" onclick={handleClick} value={visibilityFilter.INCOMPLETE}>{visibilityFilter.INCOMPLETE}</button>
+      <button class="slds-button slds-button_neutral" onclick={handleClick} value={visibilityFilter.INPROGRESS}>{visibilityFilter.INPROGRESS}</button>
+      <button class="slds-button slds-button_neutral" onclick={handleClick} value={visibilityFilter.COMPLETED}>{visibilityFilter.COMPLETED}</button>
+  </div>
+</template>

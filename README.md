@@ -5,11 +5,17 @@
 1. Create scratch org
 
 ```
-sfdx force:org:create -f config/project-scratch-def.json -a lwcreduxexample -d 30 -s
+sfdx force:org:create -f config/project-scratch-def.json -a lwc-redux-example -d 30 -s
 ```
 
 2. Install lwc-redux package
 
 ```
 sfdx force:package:install --package "lwc-redux@2.0.0-2" -w 15
+```
+
+3. Push source to scratch org
+
+```
+sfdx force:source:push
 ```
