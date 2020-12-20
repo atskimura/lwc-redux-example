@@ -2,10 +2,23 @@
   "packageDirectories": [
     {
       "path": "force-app",
-      "default": true
+      "default": true,
+      "package": "lwc-redux-example",
+      "versionName": "v0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "dependencies": [
+          {
+            "package": "lwc-redux",
+            "versionNumber": "2.0.0.LATEST"
+          }
+      ]
     }
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "50.0"
+  "sourceApiVersion": "50.0",
+  "packageAliases": {
+      "lwc-redux": "0Ho2v000000bllSCAQ",
+      "lwc-redux@2.0.0-2": "04t2v0000079AtRAAU"
+  }
 }
